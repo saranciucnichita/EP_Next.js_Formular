@@ -6,9 +6,9 @@ import Button from '@mui/material/Button';
 export default function HomeComponent() {
     return (
         // h-screen -> height: 100vh;
-        <div className="flex items-center justify-center h-screen bg-gray-200">
+        <div className="flex items-center justify-center h-screen bg-gray-200 px-6">
 
-            <Box
+            <Box className='border-2 border-black rounded-lg'
                 component="form"
                 sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
                 noValidate
