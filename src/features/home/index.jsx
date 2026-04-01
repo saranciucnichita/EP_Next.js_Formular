@@ -2,25 +2,31 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
 import { useLocalStorage } from 'react-use';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateField } from '@mui/x-date-pickers/DateField';
+import dayjs from 'dayjs';
 
 const FormComponent = () => {
+    const router = useRouter();
     const [id, setId] = useLocalStorage('id', '');
+    const [data, setData] = useLocalStorage('data', null);
     const [titlu, setTitlu] = useLocalStorage('titlu', '');
     const [locatie, setLocatie] = useLocalStorage('locatie', '');
     const [descriere, setDescriere] = useLocalStorage('descriere', '');
 
     const isFormValid = () => {
-        return id.trim() && titlu.trim() && locatie.trim();
+        return id?.trim() && titlu?.trim() && locatie?.trim();
     };
-    
+
     const handleSubmit = (event) => {
         event.preventDefault();
         if (isFormValid()) {
-            console.log('Form submitted successfully:', { id, titlu, locatie, descriere });
-            redirect('/view');
+            console.log('Form submitted successfully:', { id, data, titlu, locatie, descriere });
+            router.push('/view');
         }
     };
 
@@ -40,15 +46,31 @@ const FormComponent = () => {
                     required
                     id="id"
                     placeholder="ID"
-                    value={id}
+                    value={id || ''}
                     onChange={(e) => setId(e.target.value)}
                     variant="outlined"
                 />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DemoContainer components={['DateField']}>
+                        <DateField
+                            required
+                            label="Data"
+                            value={data ? dayjs(data) : null}
+                            onChange={(newValue) => {
+                                if (newValue && newValue.isValid()) {
+                                    setData(newValue.format('DD/MM/YYYY'));
+                                } else {
+                                    setData('');
+                                }
+                            }}
+                        />
+                    </DemoContainer>
+                </LocalizationProvider>
                 <TextField
                     required
                     id="titlu"
                     placeholder="Titlu"
-                    value={titlu}
+                    value={titlu || ''}
                     onChange={(e) => setTitlu(e.target.value)}
                     variant="outlined"
                 />
@@ -56,14 +78,14 @@ const FormComponent = () => {
                     required
                     id="locatie"
                     placeholder="Locație"
-                    value={locatie}
+                    value={locatie || ''}
                     onChange={(e) => setLocatie(e.target.value)}
                     variant="outlined"
                 />
                 <TextField
                     id="descriere"
                     placeholder="Descriere"
-                    value={descriere}
+                    value={descriere || ''}
                     onChange={(e) => setDescriere(e.target.value)}
                     multiline
                 />
