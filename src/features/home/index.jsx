@@ -4,11 +4,24 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 
-export default function FormComponent() {
+const FormComponent = () => {
     const [id, setId] = useState('');
     const [titlu, setTitlu] = useState('');
     const [locatie, setLocatie] = useState('');
     const [descriere, setDescriere] = useState('');
+
+    const isFormValid = () => {
+        return id.trim() && titlu.trim() && locatie.trim();
+    };
+    
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (isFormValid()) {
+            // Handle form submission logic here
+            console.log('Form submitted successfully:', { id, titlu, locatie, descriere });
+
+        }
+    };
 
     return (
         // h-screen -> height: 100vh;
@@ -19,6 +32,7 @@ export default function FormComponent() {
                 sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
                 noValidate
                 autoComplete="off"
+                onSubmit={handleSubmit}
             >
                 <h1 className="text-2xl font-bold mb-4">Evenimente</h1>
                 <TextField
@@ -50,13 +64,13 @@ export default function FormComponent() {
                     placeholder="Descriere"
                     value={descriere}
                     onChange={(e) => setDescriere(e.target.value)}
-                    variant="outlined"
+                    multiline
                 />
                 <Button
                     type="submit"
                     variant="contained"
                     color="primary"
-                    disabled
+                    disabled={!isFormValid()}
                     sx={{ m: 1 }}
                 >
                     Submit
@@ -64,4 +78,6 @@ export default function FormComponent() {
             </Box>
         </div>
     );
-}
+};
+
+export default FormComponent;

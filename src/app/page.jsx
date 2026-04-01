@@ -1,5 +1,5 @@
-import HomeComponent from "@/features/home/index.jsx";
+import FormComponent from "@/features/home/index.jsx";
 
 export default function HomePage() {
-  return <HomeComponent />
+  return <FormComponent />
 }

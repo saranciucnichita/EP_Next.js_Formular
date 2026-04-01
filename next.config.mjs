@@ -12,6 +12,7 @@ const nextConfig = {
       // Sets the root to the directory containing this config file
       root: __dirname,
     },
+    allowedDevOrigins: ['127.0.0.1', 'localhost', '::1'],
 };
 
 export default nextConfig;
