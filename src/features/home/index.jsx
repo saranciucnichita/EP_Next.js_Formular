@@ -3,12 +3,14 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import { useLocalStorage } from 'react-use';
+import { redirect } from 'next/navigation';
 
 const FormComponent = () => {
-    const [id, setId] = useState('');
-    const [titlu, setTitlu] = useState('');
-    const [locatie, setLocatie] = useState('');
-    const [descriere, setDescriere] = useState('');
+    const [id, setId] = useLocalStorage('id', '');
+    const [titlu, setTitlu] = useLocalStorage('titlu', '');
+    const [locatie, setLocatie] = useLocalStorage('locatie', '');
+    const [descriere, setDescriere] = useLocalStorage('descriere', '');
 
     const isFormValid = () => {
         return id.trim() && titlu.trim() && locatie.trim();
@@ -17,9 +19,8 @@ const FormComponent = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (isFormValid()) {
-            // Handle form submission logic here
             console.log('Form submitted successfully:', { id, titlu, locatie, descriere });
-
+            redirect('/view');
         }
     };
 
