@@ -9,17 +9,18 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateField } from '@mui/x-date-pickers/DateField';
 import dayjs from 'dayjs';
+import NumberField from '@/components/NumberField';
 
 const FormComponent = () => {
     const router = useRouter();
-    const [id, setId] = useLocalStorage('id', '');
+    const [id, setId] = useLocalStorage('id', 1);
     const [data, setData] = useLocalStorage('data', null);
     const [titlu, setTitlu] = useLocalStorage('titlu', '');
     const [locatie, setLocatie] = useLocalStorage('locatie', '');
     const [descriere, setDescriere] = useLocalStorage('descriere', '');
 
     const isFormValid = () => {
-        return id?.trim() && titlu?.trim() && locatie?.trim();
+        return data?.trim() && titlu?.trim() && locatie?.trim();
     };
 
     const handleSubmit = (event) => {
@@ -42,14 +43,16 @@ const FormComponent = () => {
                 onSubmit={handleSubmit}
             >
                 <h1 className="text-2xl font-bold mb-4">Evenimente</h1>
-                <TextField
-                    required
+
+                <NumberField
+                    label="ID de eveniment"
                     id="id"
-                    placeholder="ID"
-                    value={id || ''}
-                    onChange={(e) => setId(e.target.value)}
-                    variant="outlined"
+                    value={id || '1'}
+                    min={1}
+                    max={999}
+                    onChange={(value) => setId(value || 1)}
                 />
+
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DateField']}>
                         <DateField

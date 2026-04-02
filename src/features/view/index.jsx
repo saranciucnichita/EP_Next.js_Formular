@@ -37,7 +37,7 @@ const ViewForm = () => {
                 noValidate
                 autoComplete="off"
             >
-                <h1 className="text-2xl font-bold mb-4">Event</h1>
+                <h1 className="text-2xl font-bold mb-4">Eveniment</h1>
                 <h2 className="text-lg mb-2">ID: {id.replace(/"/g, '')}</h2>
                 <h2 className="text-lg mb-2">Data: {data.replace(/"/g, '')}</h2>
                 <h2 className="text-lg mb-2">Titlu: {titlu.replace(/"/g, '')}</h2>
@@ -51,7 +51,7 @@ const ViewForm = () => {
                     localStorage.removeItem('descriere');
                     router.push('/');
                 }}>
-                    Clear Data
+                    Reset
                 </Button>
             </Box>
         </div>
