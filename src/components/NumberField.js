@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useId } from 'react';
 import PropTypes from 'prop-types';
 import { NumberField as BaseNumberField } from '@base-ui/react/number-field';
 import IconButton from '@mui/material/IconButton';
@@ -19,7 +19,7 @@ function SSRInitialFilled(_) {
 SSRInitialFilled.muiName = 'Input';
 
 function NumberField({ id: idProp, label, error, size = 'medium', value, onChange, ...other }) {
-  let id = React.useId();
+  let id = useId();
   if (idProp) {
     id = idProp;
   }

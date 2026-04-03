@@ -63,7 +63,7 @@ const FormComponent = () => {
                                 if (newValue && newValue.isValid()) {
                                     setData(newValue.format('DD/MM/YYYY'));
                                 } else {
-                                    setData('');
+                                    setData(null);
                                 }
                             }}
                         />
