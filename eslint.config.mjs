@@ -1,8 +1,10 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
+import js from "@eslint/js";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
+  js.configs.recommended,
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

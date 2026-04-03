@@ -10,6 +10,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateField } from '@mui/x-date-pickers/DateField';
 import dayjs from 'dayjs';
 import NumberField from '@/components/NumberField';
+import SendIcon from '@mui/icons-material/Send';
 
 const FormComponent = () => {
     const router = useRouter();
@@ -47,6 +48,7 @@ const FormComponent = () => {
                 <NumberField
                     label="ID de eveniment"
                     id="id"
+                    name="ID de eveniment"
                     value={id || '1'}
                     min={1}
                     max={999}
@@ -59,11 +61,9 @@ const FormComponent = () => {
                             required
                             label="Data"
                             value={data ? dayjs(data) : null}
-                            onChange={(newValue) => {
-                                if (newValue && newValue.isValid()) {
-                                    setData(newValue.format('DD/MM/YYYY'));
-                                } else {
-                                    setData(null);
+                            onChange={(dataValue) => {
+                                if (dataValue && dataValue.isValid()) {
+                                    setData(dataValue.format('DD/MM/YYYY'));
                                 }
                             }}
                         />
@@ -98,6 +98,7 @@ const FormComponent = () => {
                     color="primary"
                     disabled={!isFormValid()}
                     sx={{ m: 1 }}
+                    endIcon={<SendIcon />}
                 >
                     Submit
                 </Button>

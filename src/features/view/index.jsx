@@ -1,32 +1,28 @@
 "use client";
 
+import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const ViewForm = () => {
     const router = useRouter();
 
-    const [datele, setDatele] = useState({
-        id: '',
-        data: '',
-        titlu: '',
-        locatie: '',
-        descriere: ''
+    const [datele] = useState(() => {
+        // Check if we are in the browser
+        if (typeof window !== 'undefined') {
+            return {
+                id: localStorage.getItem('id') || '',
+                data: localStorage.getItem('data') || '',
+                titlu: localStorage.getItem('titlu') || '',
+                locatie: localStorage.getItem('locatie') || '',
+                descriere: localStorage.getItem('descriere') || ''
+            };
+        } else
+        // Return default if on server
+        return { id: '', data: '', titlu: '', locatie: '', descriere: '' };
     });
-
-    // Fetch from localStorage only after mounting
-    useEffect(() => {
-        const savedData = {
-            id: localStorage.getItem('id') || '',
-            data: localStorage.getItem('data') || '',
-            titlu: localStorage.getItem('titlu') || '',
-            locatie: localStorage.getItem('locatie') || '',
-            descriere: localStorage.getItem('descriere') || ''
-        };
-        setDatele(savedData);
-    }, []);
 
     return (
         <div className="flex items-center justify-center h-screen bg-gray-200">
@@ -42,7 +38,7 @@ const ViewForm = () => {
                 <h2 className="text-lg mb-2">Titlu: {datele.titlu.replace(/"/g, '')}</h2>
                 <h2 className="text-lg mb-2">Locație: {datele.locatie.replace(/"/g, '')}</h2>
                 <h2 className="text-lg mb-2">{datele.descriere.replace(/"/g, '')}</h2>
-                <Button variant="contained" color="primary" onClick={() => {
+                <Button variant="contained" color="primary" startIcon={<DeleteIcon />} onClick={() => {
                     localStorage.removeItem('id');
                     localStorage.removeItem('data');
                     localStorage.removeItem('titlu');

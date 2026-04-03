@@ -8,6 +8,9 @@ const __dirname = dirname(__filename);
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  reactStrictMode: true,
+  poweredByHeader: false,
+
   turbopack: {
       // Sets the root to the directory containing this config file
       root: __dirname,
